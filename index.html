@@ -203,25 +203,19 @@
       margin: 8px 0;
     }
 
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 16px;
-    }
+ .gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
 
-    .photo {
-      min-height: 220px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, var(--pink), var(--blush));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--white);
-      font-weight: bold;
-      text-align: center;
-      padding: 20px;
-    }
-
+   .gallery img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 18px;
+    display: block;
+}
     .contact {
       background: var(--navy);
       color: var(--white);
