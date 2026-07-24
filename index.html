@@ -3,18 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Let's Dance Studios | Colorado Springs Dance Classes</title>
+
   <style>
     :root {
-      --pink:#f3d3dc;
-      --blush:#d88f98;
-      --navy:#12324a;
-      --white:#ffffff;
-      --soft:#fff8fa;
-      --gold:#c99a4a;
+      --pink: #f3d3dc;
+      --blush: #d88f98;
+      --navy: #12324a;
+      --white: #ffffff;
+      --soft: #fff8fa;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       font-family: Arial, sans-serif;
@@ -32,7 +41,7 @@
       position: sticky;
       top: 0;
       z-index: 10;
-      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     }
 
     .logo {
@@ -49,22 +58,22 @@
       font-size: 14px;
     }
 
+    nav a:hover {
+      color: var(--blush);
+    }
+
     .hero {
       min-height: 78vh;
-      background: #f3d3dc !important;
-      color: #12324a !important;
-      display: flex; 
+      background: var(--pink);
+      color: var(--navy);
+      display: flex;
       align-items: center;
       padding: 70px 8%;
-      background-size: cover;
-      background-position: center;
     }
-      
-      
-      
-    
 
-    .hero-box { max-width: 680px; }
+    .hero-box {
+      max-width: 680px;
+    }
 
     .hero h1 {
       font-size: clamp(42px, 7vw, 76px);
@@ -82,7 +91,7 @@
       padding: 14px 24px;
       border-radius: 999px;
       background: var(--blush);
-      color: white;
+      color: var(--white);
       text-decoration: none;
       font-weight: bold;
       margin-right: 10px;
@@ -90,11 +99,13 @@
     }
 
     .btn.secondary {
-      background: white;
+      background: var(--white);
       color: var(--navy);
     }
 
-    section { padding: 70px 8%; }
+    section {
+      padding: 70px 8%;
+    }
 
     h2 {
       font-size: 38px;
@@ -104,56 +115,92 @@
 
     .section-intro {
       text-align: center;
-      max-width: 720px;
+      max-width: 760px;
       margin: 0 auto 40px;
       font-size: 18px;
     }
 
-    .cards {
+    .welcome-cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 22px;
     }
 
-    .card {
-      background: white;
+    .welcome-card {
+      background: var(--white);
       padding: 28px;
       border-radius: 20px;
-      box-shadow: 0 8px 24px rgba(0,0,0,.08);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
     }
 
-    .card h3 {
-      margin-bottom: 10px;
+    .welcome-card h3 {
       color: var(--blush);
+      margin-bottom: 10px;
       font-size: 24px;
     }
 
-    .highlight { background: var(--pink); }
+    .highlight {
+      background: var(--pink);
+    }
 
-    .schedule {
-      background: white;
-      border-radius: 22px;
-      padding: 30px;
-      max-width: 900px;
+    .class-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      max-width: 1200px;
       margin: auto;
-      box-shadow: 0 8px 24px rgba(0,0,0,.08);
+    }
+
+    .class-name {
+      background: var(--white);
+      padding: 18px;
+      border-radius: 16px;
+      text-align: center;
+      font-weight: bold;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
     }
 
     .schedule-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
+      max-width: 1250px;
+      margin: auto;
+    }
+
+    .schedule-card {
+      background: var(--white);
+      padding: 26px;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .schedule-card h3 {
+      color: var(--blush);
+      font-size: 22px;
+      margin-bottom: 12px;
+      border-bottom: 2px solid var(--pink);
+      padding-bottom: 8px;
+    }
+
+    .schedule-card p {
+      font-size: 15px;
+      line-height: 1.85;
     }
 
     .price-box {
       text-align: center;
       background: var(--navy);
-      color: white;
+      color: var(--white);
       padding: 40px;
       border-radius: 22px;
       max-width: 760px;
       margin: auto;
       font-size: 18px;
+    }
+
+    .price-box p {
+      margin: 8px 0;
     }
 
     .gallery {
@@ -169,7 +216,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
+      color: var(--white);
       font-weight: bold;
       text-align: center;
       padding: 20px;
@@ -177,13 +224,17 @@
 
     .contact {
       background: var(--navy);
-      color: white;
+      color: var(--white);
       text-align: center;
+    }
+
+    .contact p {
+      margin-bottom: 6px;
     }
 
     footer {
       background: #071a27;
-      color: white;
+      color: var(--white);
       text-align: center;
       padding: 22px;
       font-size: 14px;
@@ -195,139 +246,370 @@
         text-align: center;
       }
 
-      nav { margin-top: 12px; }
+      nav {
+        margin-top: 12px;
+      }
 
       nav a {
         display: inline-block;
         margin: 6px;
       }
 
-      .hero { text-align: center; }
+      .hero {
+        text-align: center;
+      }
+
+      .schedule-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
+
 <body>
 
-<header>
-  <div class="logo">Let’s Dance Studios</div>
-  <nav>
-    <a href="#classes">Classes</a>
-    <a href="#schedule">Schedule</a>
-    <a href="#fees">Fees</a>
-    <a href="#recital">Recital</a>
-    <a href="#contact">Join Us</a>
-  </nav>
-</header>
+  <header>
+    <div class="logo">Let’s Dance Studios</div>
 
-<section class="hero">
-  <div class="hero-box">
-    <h1>Dance Classes for Kids, Teens & Adults</h1>
-    <p>Welcoming ballet, tap, jazz, lyrical, and beginner dance classes in Colorado Springs.</p>
-    <a class="btn" href="#contact">Join Us Now</a>
-    <a class="btn secondary" href="#schedule">View Schedule</a>
-  </div>
-</section>
+    <nav>
+      <a href="#classes">Classes</a>
+      <a href="#schedule">Schedule</a>
+      <a href="#fees">Fees</a>
+      <a href="#recital">Recital</a>
+      <a href="#contact">Join Us</a>
+    </nav>
+  </header>
 
-<section>
-  <h2>Welcome to Let’s Dance!</h2>
-  <p class="section-intro">
-    A friendly Colorado Springs dance studio helping students build confidence, technique, discipline, and joy through dance.
-  </p>
+  <section class="hero">
+    <div class="hero-box">
+      <h1>Dance Classes for Kids, Teens & Adults</h1>
 
-  <div class="cards">
-    <div class="card">
-      <h3>Ages 3 to Adult</h3>
-      <p>Classes for young beginners, growing dancers, advanced students, and adults.</p>
+      <p>
+        Welcoming ballet, tap, jazz, lyrical, pointe, tumble, and beginner
+        dance classes in Colorado Springs.
+      </p>
+
+      <a class="btn" href="#contact">Join Us Now</a>
+      <a class="btn secondary" href="#schedule">View Schedule</a>
     </div>
-    <div class="card">
-      <h3>Ballet, Tap & Jazz</h3>
-      <p>Strong fundamentals taught in a supportive and structured studio environment.</p>
+  </section>
+
+  <section>
+    <h2>Welcome to Let’s Dance!</h2>
+
+    <p class="section-intro">
+      A friendly Colorado Springs dance studio helping students build
+      confidence, technique, discipline, and joy through dance.
+    </p>
+
+    <div class="welcome-cards">
+
+      <div class="welcome-card">
+        <h3>Ages 3 to Adult</h3>
+        <p>
+          Classes for young beginners, growing dancers, advanced students,
+          and adults.
+        </p>
+      </div>
+
+      <div class="welcome-card">
+        <h3>Ballet, Tap & Jazz</h3>
+        <p>
+          Strong fundamentals taught in a supportive and structured studio
+          environment.
+        </p>
+      </div>
+
+      <div class="welcome-card">
+        <h3>Performance Ready</h3>
+        <p>
+          Students learn skills, confidence, and stage presence through
+          recital preparation.
+        </p>
+      </div>
+
     </div>
-    <div class="card">
-      <h3>Performance Ready</h3>
-      <p>Students learn skills, confidence, and stage presence through recital preparation.</p>
+  </section>
+
+  <section id="classes" class="highlight">
+    <h2>Classes</h2>
+
+    <p class="section-intro">
+      Contact the studio for class placement, availability, and enrollment.
+    </p>
+
+    <div class="class-list">
+      <div class="class-name">Introduction to Dance</div>
+      <div class="class-name">Tiny Tumble</div>
+      <div class="class-name">Pre-Ballet / Pre-Tap</div>
+      <div class="class-name">Pre-Jazz / Pre-Tap</div>
+      <div class="class-name">Adult Pointe</div>
+      <div class="class-name">Adult Ballet</div>
+      <div class="class-name">Adult Lyrical</div>
+      <div class="class-name">Adult Tap</div>
+      <div class="class-name">Beginning Ballet</div>
+      <div class="class-name">Beginning Ballet / Tap</div>
+      <div class="class-name">Beginning Jazz</div>
+      <div class="class-name">Beginning Jazz / Tap</div>
+      <div class="class-name">Ballet 1</div>
+      <div class="class-name">Ballet 2</div>
+      <div class="class-name">Advanced Ballet / Pointe</div>
+      <div class="class-name">Tap 1</div>
+      <div class="class-name">Tap 2</div>
+      <div class="class-name">Advanced Tap</div>
+      <div class="class-name">Jazz 1 & 2</div>
+      <div class="class-name">Advanced Jazz</div>
+      <div class="class-name">Lyrical</div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="classes" class="highlight">
-  <h2>Classes</h2>
-  <p class="section-intro">Choose the right level for your dancer. We’ll help place students where they can grow and feel confident.</p>
+  <section id="schedule">
+    <h2>Class Schedule</h2>
 
-  <div class="cards">
-    <div class="card"><h3>Introduction to Dance</h3><p>Perfect for young beginners learning movement, rhythm, and classroom basics.</p></div>
-    <div class="card"><h3>Pre-Ballet / Pre-Tap</h3><p>For ages 4–6, focused on beginner ballet and tap foundations.</p></div>
-    <div class="card"><h3>Beginning Ballet / Tap</h3><p>Builds technique, coordination, posture, and musicality.</p></div>
-    <div class="card"><h3>Jazz</h3><p>Energetic classes focused on rhythm, movement, turns, and performance.</p></div>
-    <div class="card"><h3>Contemporary / Lyrical</h3><p>Expressive movement for dancers ready to grow artistry and emotion.</p></div>
-    <div class="card"><h3>Adult Classes</h3><p>Ballet, tap, pointe, and lyrical options for adult dancers.</p></div>
-  </div>
-</section>
+    <p class="section-intro">
+      Current weekly class times.
+    </p>
 
-<section id="schedule">
-  <h2>Class Schedule</h2>
-  <p class="section-intro">Starter schedule based on the current studio information. We can tighten this up later so parents don’t need a treasure map.</p>
-
-  <div class="schedule">
     <div class="schedule-grid">
-      <div>
+
+      <div class="schedule-card">
         <h3>Introduction to Dance</h3>
-        <p>Mon 10:00–10:45am<br>Wed 10:45–11:30am<br>Thu 10:00–10:45am<br>Fri 10:00–10:45am<br>Sat 10:00–10:45am</p>
+        <p>
+          Monday 10:00–10:45<br>
+          Wednesday 10:45–11:30<br>
+          Thursday 10:00–10:45<br>
+          Friday 10:00–10:45<br>
+          Saturday 10:00–10:45
+        </p>
       </div>
-      <div>
+
+      <div class="schedule-card">
+        <h3>Tiny Tumble</h3>
+        <p>
+          Tuesday 10:00–10:45
+        </p>
+      </div>
+
+      <div class="schedule-card">
         <h3>Pre-Ballet / Pre-Tap</h3>
-        <p>Mon 10:45–11:30am<br>Tue 3:15–4:00pm<br>Wed 10:00–10:45am | 4:00–4:45pm<br>Thu 9:15–10:00am<br>Fri 9:15–10:00am | 10:45–11:30am<br>Sat 9:15–10:00am | 10:45–11:30am</p>
+        <p>
+          Monday 10:45–11:30<br>
+          Tuesday 3:15–4:00<br>
+          Wednesday 10:00–10:45 or 4:00–4:45<br>
+          Thursday 9:15–10:00<br>
+          Friday 9:15–10:00 or 10:45–11:30<br>
+          Saturday 9:15–10:00 or 10:45–11:30
+        </p>
       </div>
-      <div>
+
+      <div class="schedule-card">
+        <h3>Pre-Jazz / Pre-Tap</h3>
+        <p>
+          Tuesday 10:45–11:30<br>
+          Wednesday 3:15–4:00
+        </p>
+      </div>
+
+      <div class="schedule-card">
+        <h3>Adult Pointe</h3>
+        <p>
+          Tuesday 8:30–9:15am or 8:30–9:15pm
+        </p>
+      </div>
+
+      <div class="schedule-card">
+        <h3>Adult Ballet</h3>
+        <p>
+          Monday 8:30–9:15pm
+        </p>
+      </div>
+
+      <div class="schedule-card">
+        <h3>Adult Lyrical</h3>
+        <p>
+          Wednesday 8:30–9:15pm
+        </p>
+      </div>
+
+      <div class="schedule-card">
+        <h3>Adult Tap</h3>
+        <p>
+          Friday 8:30–9:15pm<br>
+          Saturday 5:30–6:15pm
+        </p>
+      </div>
+
+      <div class="schedule-card">
+        <h3>Beginning Ballet</h3>
+        <p>
+          Monday 4:45–5:30<br>
+          Saturday 1:00–1:45
+        </p>
+      </div>
+
+      <div class="schedule-card">
         <h3>Beginning Ballet / Tap</h3>
-        <p>Mon 1:00–1:45pm<br>Wed 5:30–6:15pm<br>Thu 10:45–11:30am | 5:30–6:15pm<br>Fri 12:15–1:00pm<br>Sat 11:30–12:15pm</p>
+        <p>
+          Monday 1:00–1:45<br>
+          Wednesday 5:30–6:15<br>
+          Thursday 10:45–11:30 or 5:30–6:15<br>
+          Friday 12:15–1:00<br>
+          Saturday 11:30–12:15
+        </p>
       </div>
-      <div>
-        <h3>Adult Classes</h3>
-        <p>Adult Ballet: Mon 8:30–9:15pm<br>Adult Tap: Fri 8:30–9:15pm, Sat 5:30–6:15pm<br>Adult Lyrical: Wed 8:30–9:15pm</p>
+
+      <div class="schedule-card">
+        <h3>Beginning Jazz</h3>
+        <p>
+          Saturday 12:15–1:00
+        </p>
       </div>
+
+      <div class="schedule-card">
+        <h3>Beginning Jazz / Tap</h3>
+        <p>
+          Monday 12:15–1:00<br>
+          Wednesday 4:45–5:30<br>
+          Thursday 11:30–12:15 or 4:45–5:30<br>
+          Friday 11:30–12:15
+        </p>
+      </div>
+
+      <div class="schedule-card">
+        <h3>Ballet 1</h3>
+        <p>
+          Tuesday 4:45–5:30<br>
+          Friday 4:00–4:45<br>
+          Saturday 2:30–3:15
+        </p>
+      </div>
+
+      <div class="schedule-card">
+        <h3>Ballet 2</h3>
+        <p>
+          Monday 4:00–4:45<br>
+          Tuesday 6:15–7:00<br>
+          Wednesday 12:15–1:00<br>
+          Thursday 4:00–4:45<br>
+          Friday 5:30–6:15<br>
+          Saturday 4:00–4:45
+        </p>
+      </div>
+
+      <div class="schedule-card">
+        <h3>Advanced Ballet / Pointe</h3>
+        <p>
+          Wednesday 7:00–8:30<br>
+          Thursday 7:00–8:30<br>
+          Friday 7:00–8:30
+        </p>
+      </div>
+
+      <div class="schedule-card">
+        <h3>Tap 1</h3>
+        <p>
+          Monday 5:30–6:15<br>
+          Tuesday 4:00–4:45<br>
+          Saturday 1:45–2:30
+        </p>
+      </div>
+
+      <div class="schedule-card">
+        <h3>Tap 2</h3>
+        <p>
+          Wednesday 11:30–12:15<br>
+          Thursday 4:00–4:45<br>
+          Saturday 4:45–5:30
+        </p>
+      </div>
+
+      <div class="schedule-card">
+        <h3>Advanced Tap</h3>
+        <p>
+          Monday 7:45–8:30<br>
+          Thursday 6:15–7:00
+        </p>
+      </div>
+
+      <div class="schedule-card">
+        <h3>Jazz 1 & 2</h3>
+        <p>
+          Monday 6:15–7:00<br>
+          Tuesday 5:30–6:15<br>
+          Friday 4:45–5:30<br>
+          Saturday 3:15–4:00
+        </p>
+      </div>
+
+      <div class="schedule-card">
+        <h3>Advanced Jazz</h3>
+        <p>
+          Monday 7:00–7:45<br>
+          Wednesday 6:15–7:00
+        </p>
+      </div>
+
+      <div class="schedule-card">
+        <h3>Lyrical</h3>
+        <p>
+          Tuesday 9:15–10:00 or 7:00–7:45<br>
+          Friday 6:15–7:00
+        </p>
+      </div>
+
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="fees" class="highlight">
-  <h2>Monthly Fees</h2>
-  <div class="price-box">
-    <p>One class every week: <strong>$60/month</strong></p>
-    <p>Two classes every week: <strong>$70/month</strong></p>
-    <p>Three classes every week: <strong>$85/month</strong></p>
-    <p>Unlimited classes: <strong>$100/month</strong></p>
-  </div>
-</section>
+  <section id="fees" class="highlight">
+    <h2>Monthly Fees</h2>
 
-<section id="recital">
-  <h2>Recital & Performances</h2>
-  <p class="section-intro">
-    Students have the opportunity to prepare, perform, and celebrate their progress through recital dances and studio events.
-  </p>
-  <div class="gallery">
-    <div class="photo">Recital Photo</div>
-    <div class="photo">Classroom Photo</div>
-    <div class="photo">Performance Photo</div>
-    <div class="photo">Studio Photo</div>
-  </div>
-</section>
+    <div class="price-box">
+      <p>One class every week: <strong>$60/month</strong></p>
+      <p>Two classes every week: <strong>$70/month</strong></p>
+      <p>Three classes every week: <strong>$85/month</strong></p>
+      <p>Unlimited classes: <strong>$100/month</strong></p>
+    </div>
+  </section>
 
-<section id="contact" class="contact">
-  <h2>Join Us Now</h2>
-  <p>Let’s Dance Studios</p>
-  <p>3279 S. Academy Blvd.<br>Colorado Springs, CO 80916</p>
-  <p>Email: mka1982@hotmail.com</p>
-  <p>Phone: 719-649-6569</p>
-  <br>
-  <a class="btn" href="mailto:mka1982@hotmail.com">Email the Studio</a>
-</section>
+  <section id="recital">
+    <h2>Recital & Performances</h2>
 
-<footer>
-  © 2026 Let’s Dance Studios. All rights reserved.
-</footer>
+    <p class="section-intro">
+      Students have the opportunity to prepare, perform, and celebrate their
+      progress through recital dances and studio events.
+    </p>
+
+    <div class="gallery">
+      <div class="photo">Recital Photo</div>
+      <div class="photo">Classroom Photo</div>
+      <div class="photo">Performance Photo</div>
+      <div class="photo">Studio Photo</div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>Join Us Now</h2>
+
+    <p>Let’s Dance Studios</p>
+
+    <p>
+      3279 S. Academy Blvd.<br>
+      Colorado Springs, CO 80916
+    </p>
+
+    <p>Email: mka1982@hotmail.com</p>
+    <p>Phone: 719-649-6569</p>
+
+    <br>
+
+    <a class="btn" href="mailto:mka1982@hotmail.com">
+      Email the Studio
+    </a>
+  </section>
+
+  <footer>
+    © 2026 Let’s Dance Studios. All rights reserved.
+  </footer>
 
 </body>
 </html>
-index.html
-Displaying index.html.
