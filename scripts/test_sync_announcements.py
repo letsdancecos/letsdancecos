@@ -24,6 +24,10 @@ class ImportTests(unittest.TestCase):
     def test_empty_valid_feed(self):
         self.assertEqual(parse_feed(rss(), NOW), {'events': []})
 
+    def test_encoded_xml_declarations_rejected(self):
+        with self.assertRaises((ValueError, UnicodeError)):
+            parse_feed('<!DOCTYPE rss><rss/>'.encode('utf-16'), NOW)
+
     def test_errors_preserve_existing_bytes(self):
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory) / 'announcements.json'

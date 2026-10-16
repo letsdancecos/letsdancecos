@@ -43,9 +43,13 @@ def text(value, limit):
 
 
 def parse_feed(raw, now=None):
-    if len(raw) > MAX_BYTES or re.search(br'<!\s*(DOCTYPE|ENTITY)', raw, re.I):
+    if len(raw) > MAX_BYTES:
+        raise ValueError('Oversized feed')
+    # Wix serves UTF-8. Decode first so UTF-16 cannot bypass declaration checks.
+    xml = raw.decode('utf-8-sig')
+    if '\x00' in xml or re.search(r'<!\s*(DOCTYPE|ENTITY)', xml, re.I):
         raise ValueError('Oversized feed or forbidden XML declarations')
-    root = ET.fromstring(raw)
+    root = ET.fromstring(xml)
     channel = root.find('channel')
     if root.tag != 'rss' or channel is None or not channel.findtext('title'):
         raise ValueError('Expected a valid RSS channel')
