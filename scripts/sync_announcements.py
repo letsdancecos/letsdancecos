@@ -8,6 +8,7 @@ from datetime import datetime, timezone, timedelta
 from email.utils import parsedate_to_datetime
 from html.parser import HTMLParser
 from pathlib import Path
+from urllib.parse import urlsplit
 
 FEED_URL = 'https://www.letsdancecos.com/blog-feed.xml'
 OUTPUT = Path(__file__).resolve().parents[1] / 'app/announcements.json'
@@ -42,7 +43,45 @@ def text(value, limit):
     return re.sub(r'\s+', ' ', ''.join(parser.parts)).strip()[:limit]
 
 
-def parse_feed(raw, now=None):
+class PostCategories(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.is_post = False
+        self.in_categories = False
+        self.matches = False
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if attrs.get('data-hook') == 'post-page':
+            self.is_post = True
+        if tag == 'ul' and attrs.get('aria-label') == 'Post categories':
+            self.in_categories = True
+        if self.in_categories and tag == 'a' and attrs.get('href') == 'https://www.letsdancecos.com/blog/categories/studio-announcements':
+            self.matches = True
+
+    def handle_endtag(self, tag):
+        if tag == 'ul':
+            self.in_categories = False
+
+
+def is_announcement_page(raw):
+    if len(raw) > MAX_BYTES:
+        raise ValueError('Oversized post page')
+    parser = PostCategories()
+    parser.feed(raw.decode('utf-8-sig'))
+    if not parser.is_post:
+        raise ValueError('Expected public Wix post page')
+    return parser.matches
+
+
+def public_category(link):
+    url = urlsplit(link)
+    if url.scheme != 'https' or url.netloc != 'www.letsdancecos.com' or not url.path.startswith('/post/') or url.query or url.fragment:
+        raise ValueError('Unexpected public post URL')
+    return is_announcement_page(fetch_url(link))
+
+
+def parse_feed(raw, now=None, category_check=public_category):
     if len(raw) > MAX_BYTES:
         raise ValueError('Oversized feed')
     # Wix serves UTF-8. Decode first so UTF-16 cannot bypass declaration checks.
@@ -56,10 +95,10 @@ def parse_feed(raw, now=None):
     now = now or datetime.now(timezone.utc)
     events = []
     seen = set()
+    if len(channel.findall('item')) > 60:
+        raise ValueError('Too many feed entries')
     for item in channel.findall('item'):
         categories = {text(c.text, 100).casefold() for c in item.findall('category')}
-        if 'studio announcements' not in categories:
-            continue
         title = text(item.findtext('title'), 90)
         try:
             published = parsedate_to_datetime(item.findtext('pubDate', ''))
@@ -68,6 +107,11 @@ def parse_feed(raw, now=None):
         except (ValueError, TypeError, OverflowError):
             continue
         if not title or published > now or published < now - timedelta(days=90):
+            continue
+        if categories:
+            if 'studio announcements' not in categories:
+                continue
+        elif not category_check(item.findtext('link', '')):
             continue
         identity = item.findtext('guid') or item.findtext('link') or title
         if identity in seen:
@@ -80,12 +124,21 @@ def parse_feed(raw, now=None):
     return {'events': [event for _, event in events[:60]]}
 
 
-def fetch_feed():
-    request = urllib.request.Request(FEED_URL, headers={'User-Agent': 'LetsDanceAnnouncements/1.0', 'Accept': 'application/rss+xml, application/xml, text/xml'})
-    with urllib.request.urlopen(request, timeout=30) as response:
-        if response.status != 200 or response.url != FEED_URL:
+class NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        raise ValueError('Unexpected redirect')
+
+
+def fetch_url(url):
+    request = urllib.request.Request(url, headers={'User-Agent': 'LetsDanceAnnouncements/1.0', 'Accept': 'application/rss+xml, application/xml, text/xml'})
+    with urllib.request.build_opener(NoRedirect).open(request, timeout=30) as response:
+        if response.status != 200 or response.url != url:
             raise ValueError('Unexpected RSS response or redirect')
         return response.read(MAX_BYTES + 1)
+
+
+def fetch_feed():
+    return fetch_url(FEED_URL)
 
 
 def sync(fetch=fetch_feed, output=OUTPUT):

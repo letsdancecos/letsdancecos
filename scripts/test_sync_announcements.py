@@ -3,7 +3,8 @@ import tempfile
 import unittest
 from datetime import datetime, timezone
 from pathlib import Path
-from sync_announcements import parse_feed, sync
+from sync_announcements import parse_feed, sync, is_announcement_page, public_category
+from unittest.mock import patch
 
 NOW = datetime(2026, 10, 16, 23, tzinfo=timezone.utc)
 
@@ -20,6 +21,33 @@ class ImportTests(unittest.TestCase):
     def test_filters_sanitizes_and_deduplicates(self):
         data = parse_feed(rss(item() + item() + item(category='Other') + item(date='Fri, 16 Oct 2027 20:00:00 GMT') + item(date='Fri, 16 Jan 2026 20:00:00 GMT') + item(date='bad')), NOW)
         self.assertEqual(data, {'events': [{'title': 'Studio closed on Oct 17th and 19th', 'category': 'closure', 'date': '2026-10-16', 'details': 'Hello'}]})
+
+    def test_real_wix_items_without_category(self):
+        payload = rss(item().replace('<category>Studio Announcements</category>', '<link>https://www.letsdancecos.com/post/test</link>'))
+        self.assertEqual(len(parse_feed(payload, NOW, lambda link: True)['events']), 1)
+        self.assertEqual(parse_feed(payload, NOW, lambda link: False), {'events': []})
+
+    def test_public_page_category_not_navigation(self):
+        link = '<a href="https://www.letsdancecos.com/blog/categories/studio-announcements">Studio Announcements</a>'
+        page = '<div data-hook="post-page">' + link + '</div>'
+        self.assertFalse(is_announcement_page(page.encode()))
+        self.assertTrue(is_announcement_page((page + '<ul aria-label="Post categories">' + link + '</ul>').encode()))
+        with self.assertRaises(ValueError):
+            is_announcement_page(b'<html>Challenge or error</html>')
+        for url in ('https://evil.example/post/x', 'http://www.letsdancecos.com/post/x', 'https://www.letsdancecos.com@evil.example/post/x'):
+            with self.assertRaises(ValueError):
+                public_category(url)
+
+    def test_category_fetch_failure_preserves_feed(self):
+        payload = rss(item().replace('<category>Studio Announcements</category>', '<link>https://www.letsdancecos.com/post/test</link>'))
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / 'announcements.json'
+            original = b'{"events": []}'
+            output.write_bytes(original)
+            with patch('sync_announcements.fetch_url', side_effect=TimeoutError):
+                with self.assertRaises(TimeoutError):
+                    sync(lambda: payload, output)
+            self.assertEqual(output.read_bytes(), original)
 
     def test_empty_valid_feed(self):
         self.assertEqual(parse_feed(rss(), NOW), {'events': []})

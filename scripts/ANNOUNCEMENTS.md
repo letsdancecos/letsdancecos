@@ -7,10 +7,13 @@ It explicitly requests a GitHub Pages rebuild, including on the next run if a
 previous deployment failed. Existing branch-based Pages hosting is retained.
 
 Publish a Wix Blog post in **Studio Announcements** to include it. Drafts and
-scheduled future posts are not imported. The feed was tested on October 16,
-2026 and was valid but contained zero public posts; the saved closure draft
-was not published. A first published post is still needed to verify Wix's
-actual item/category output end to end.
+scheduled future posts are not imported. Wix RSS omits category labels, so the
+importer checks the category links in each public post's **Post categories**
+section (not the navigation menu). Only the fixed studio HTTPS host and /post/
+paths are permitted; redirects are rejected. A failed page fetch or unexpected
+page preserves the existing feed. No private Wix APIs or credentials are used.
+The first published past-closure sample was tested from the public RSS and post
+page on October 20, 2026.
 
 Only posts published within 90 days are included, newest first, up to 60.
 Titles containing closed/closure become Closures; recital becomes Recitals;
