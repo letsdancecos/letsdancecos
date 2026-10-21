@@ -1,5 +1,12 @@
 {
-  "version": 1,
-  "initialized": false,
-  "posts": {}
+  "initialized": true,
+  "posts": {
+    "299d204ef853bf18c3a396d9c03b118aeca176f55df6ca12da9b6917b767e6af": {
+      "first_seen": "2026-10-21T19:43:11.464175+00:00",
+      "key": "3bd76426-9b63-5e57-8810-a81815ecd998",
+      "reason": "baseline-or-disabled-or-old",
+      "status": "skipped"
+    }
+  },
+  "version": 1
 }
