@@ -20,7 +20,17 @@ def item(title='Studio closed on Oct 17th and 19th', category='Studio Announceme
 class ImportTests(unittest.TestCase):
     def test_filters_sanitizes_and_deduplicates(self):
         data = parse_feed(rss(item() + item() + item(category='Other') + item(date='Fri, 16 Oct 2027 20:00:00 GMT') + item(date='Fri, 16 Jan 2026 20:00:00 GMT') + item(date='bad')), NOW)
-        self.assertEqual(data, {'events': [{'title': 'Studio closed on Oct 17th and 19th', 'category': 'closure', 'date': '2026-10-16', 'details': 'Hello'}]})
+        self.assertEqual(len(data['events']), 1)
+        event = data['events'][0]
+        self.assertEqual(len(event.pop('id')), 64)
+        self.assertEqual(event.pop('published_at'), '2026-10-16T20:00:00+00:00')
+        self.assertEqual(event, {'title': 'Studio closed on Oct 17th and 19th', 'category': 'closure', 'date': '2026-10-16', 'details': 'Hello'})
+
+    def test_guid_identity_survives_title_edits(self):
+        first = item().replace('</item>', '<guid>stable-post-id</guid></item>')
+        second = first.replace('Studio closed on Oct 17th and 19th', 'Updated title')
+        self.assertEqual(parse_feed(rss(first), NOW)['events'][0]['id'],
+                         parse_feed(rss(second), NOW)['events'][0]['id'])
 
     def test_real_wix_items_without_category(self):
         payload = rss(item().replace('<category>Studio Announcements</category>', '<link>https://www.letsdancecos.com/post/test</link>'))

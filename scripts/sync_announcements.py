@@ -1,4 +1,5 @@
 """Import only public Studio Announcements; never expose Wix credentials or HTML."""
+import hashlib
 import json
 import re
 import sys
@@ -119,7 +120,7 @@ def parse_feed(raw, now=None, category_check=public_category):
         seen.add(identity)
         category = 'closure' if re.search(r'\b(closed|closure|closures)\b', title, re.I) else 'recital' if re.search(r'\brecitals?\b', title, re.I) else 'news'
         details = text(item.findtext('description') or item.findtext('{http://purl.org/rss/1.0/modules/content/}encoded'), 400)
-        events.append((published, {'title': title, 'category': category, 'date': published.date().isoformat(), 'details': details}))
+        events.append((published, {'id': hashlib.sha256(identity.encode('utf-8')).hexdigest(), 'published_at': published.isoformat(), 'title': title, 'category': category, 'date': published.date().isoformat(), 'details': details}))
     events.sort(key=lambda row: row[0], reverse=True)
     return {'events': [event for _, event in events[:60]]}
 
