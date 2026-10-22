@@ -1,20 +1,12 @@
 {
   "events": [
     {
-      "id": "0bd4a7e3194532b6e310cab1d3cb01c053ab6c4ebc413355b5c0f3f008d70e1b",
-      "published_at": "2026-10-22T01:46:21+00:00",
-      "title": "Notification test",
+      "id": "89b0658ce98d035a1ac4d3a17d80cf4898ccf9cd19d4d47ca5eea9f1a083c4fc",
+      "published_at": "2026-10-22T21:13:02+00:00",
+      "title": "Halloween",
       "category": "news",
       "date": "2026-10-22",
-      "details": "Test 6 or somthing"
-    },
-    {
-      "id": "299d204ef853bf18c3a396d9c03b118aeca176f55df6ca12da9b6917b767e6af",
-      "published_at": "2026-10-20T17:13:32+00:00",
-      "title": "Past post: Studio closed on Oct 17th and 19th",
-      "category": "closure",
-      "date": "2026-10-20",
-      "details": "Let’s Dance Studios was closed Saturday, October 17, and Monday, October 19, 2026."
+      "details": "the studio will be open on Halloween 10/31/2026"
     }
   ]
 }
