@@ -2,10 +2,11 @@
   "initialized": true,
   "posts": {
     "0bd4a7e3194532b6e310cab1d3cb01c053ab6c4ebc413355b5c0f3f008d70e1b": {
+      "completed_at": "2026-10-22T02:08:29.182168+00:00",
       "first_seen": "2026-10-22T02:08:05.111992+00:00",
       "key": "87c2910c-3cd4-59c5-a4b4-eafee2a84398",
       "reason": "new",
-      "status": "pending"
+      "status": "accepted"
     },
     "299d204ef853bf18c3a396d9c03b118aeca176f55df6ca12da9b6917b767e6af": {
       "first_seen": "2026-10-21T19:43:11.464175+00:00",
