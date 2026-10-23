@@ -15,10 +15,11 @@
       "status": "skipped"
     },
     "89b0658ce98d035a1ac4d3a17d80cf4898ccf9cd19d4d47ca5eea9f1a083c4fc": {
+      "completed_at": "2026-10-23T00:00:05.981671+00:00",
       "first_seen": "2026-10-22T23:59:36.952051+00:00",
       "key": "3405a949-cd0f-5b71-a337-0a32a463eadd",
       "reason": "new",
-      "status": "pending"
+      "status": "accepted"
     },
     "9643563dc20aa48bb730eb8f8e933dead3d4cbee3c63bac0a6409e54227cea90": {
       "first_seen": "2026-10-21T22:47:32.843153+00:00",
