@@ -75,6 +75,7 @@ def payload(event, record):
         'name': 'Studio announcement ' + event['id'][:16],
         'idempotency_key': record['key'],
         'ttl': 86400,
+        'priority': 10,
     }
 
 
