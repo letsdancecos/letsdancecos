@@ -1,6 +1,14 @@
 {
   "events": [
     {
+      "id": "8eebbf8550a9981416ab8c94f02256f0f0989a94d1f3378572ea7b5805b5c5a0",
+      "published_at": "2026-10-23T22:01:31+00:00",
+      "title": "Priority notification test",
+      "category": "news",
+      "date": "2026-10-23",
+      "details": "Priority notification test"
+    },
+    {
       "id": "89b0658ce98d035a1ac4d3a17d80cf4898ccf9cd19d4d47ca5eea9f1a083c4fc",
       "published_at": "2026-10-22T21:13:02+00:00",
       "title": "Halloween Dance Party at Let's Dance Studios!",
