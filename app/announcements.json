@@ -1,12 +1,20 @@
 {
   "events": [
     {
-      "id": "8eebbf8550a9981416ab8c94f02256f0f0989a94d1f3378572ea7b5805b5c5a0",
-      "published_at": "2026-10-23T22:01:31+00:00",
-      "title": "Priority notification test",
+      "id": "286b020a02bc22fcea5767f741d64f4e03a083e8ebff155d2c8fbf4e55535188",
+      "published_at": "2026-10-24T03:02:15+00:00",
+      "title": "Final notification test",
       "category": "news",
-      "date": "2026-10-23",
-      "details": "Priority notification test"
+      "date": "2026-10-24",
+      "details": "Test 6"
+    },
+    {
+      "id": "48dc2f0e9b155d7018e7143b61bd80d108c4e7f0b7bf2f054c31974a82cfcf62",
+      "published_at": "2026-10-24T02:31:14+00:00",
+      "title": "Notification test 4",
+      "category": "news",
+      "date": "2026-10-24",
+      "details": "Notification test 4"
     },
     {
       "id": "89b0658ce98d035a1ac4d3a17d80cf4898ccf9cd19d4d47ca5eea9f1a083c4fc",
