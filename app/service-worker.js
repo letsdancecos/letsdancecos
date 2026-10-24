@@ -1,5 +1,5 @@
-const CACHE_NAME = "letsdance-studio-app-v5";
-const APP_FILES = ["./", "./index.html", "./manifest-dancer.webmanifest", "./icon-dancer-v2-32.png", "./icon-dancer-v2-180.png", "./icon-dancer-v2-192.png", "./icon-dancer-v2-512.png", "./icon-dancer-v2-maskable-512.png"];
+const CACHE_NAME = "letsdance-studio-app-v6";
+const APP_FILES = ["./", "./index.html", "./manifest-dancer.webmanifest", "./icon-dancer-v3-32.png", "./icon-dancer-v3-180.png", "./icon-dancer-v3-192.png", "./icon-dancer-v3-512.png", "./icon-dancer-v3-maskable-512.png"];
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_FILES)).then(() => self.skipWaiting()));
 });
