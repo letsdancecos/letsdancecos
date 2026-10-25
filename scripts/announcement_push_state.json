@@ -49,10 +49,11 @@
       "status": "skipped"
     },
     "a97e5c425af923bdafe66b0d06f256145df3c2d3dfe551ba43834b20672ee0b1": {
+      "completed_at": "2026-10-25T03:52:29.729767+00:00",
       "first_seen": "2026-10-25T03:52:05.960887+00:00",
       "key": "120a998a-4878-578e-a066-4ce24eeac68c",
       "reason": "new",
-      "status": "pending"
+      "status": "accepted"
     }
   },
   "version": 1
