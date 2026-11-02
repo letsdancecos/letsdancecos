@@ -16,7 +16,7 @@ test('authenticated publish dispatches only fixed workflow/main with URL input',
     calls++;
     assert.equal(url, 'https://api.github.com/repos/letsdancecos/letsdancecos/actions/workflows/announcements.yml/dispatches');
     assert.deepEqual(JSON.parse(options.body), {ref: 'main', inputs: {wix_post_url: post_url}});
-    assert.equal(options.redirect, 'error');
+    assert.equal(options.redirect, 'manual');
     assert.equal(options.headers.Authorization, 'Bearer private-test-token');
     return new Response(null, {status: 204});
   });
@@ -68,6 +68,19 @@ test('safe diagnostics distinguish GitHub rejection, network failure and limiter
   assert.deepEqual(await res.json(), {error: 'Dispatch failed', stage: 'rate_limiter'});
   const failed = await handle(request(), env(), async () => {throw new Error(secret)});
   assert.deepEqual(await failed.json(), {error: 'Dispatch failed', stage: 'github_network_or_request'});
+});
+
+test('Workers-compatible request mode and upstream redirects never count as success', async () => {
+  let calls = 0;
+  const result = await handle(request(), env(), async (url, options) => {
+    if (options.redirect === 'error') throw new TypeError('Unsupported redirect mode');
+    calls++;
+    assert.equal(options.redirect, 'manual');
+    return new Response(null, {status: 302, headers: {Location: 'https://evil.example/'}});
+  });
+  assert.equal(calls, 1);
+  assert.equal(result.status, 502);
+  assert.equal((await result.json()).upstream_status, 302);
 });
 
 test('URL validation rejects credentials, queries, fragments, redirects and other hosts', () => {

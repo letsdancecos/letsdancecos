@@ -59,7 +59,9 @@ export async function handle(request, env, dispatch = fetch) {
   } catch { return reply(502, 'Dispatch failed', {stage: 'rate_limiter'}); }
   try {
     const response = await dispatch(ENDPOINT, {
-      method: 'POST', redirect: 'error', signal: AbortSignal.timeout(10000),
+      // Workers rejects redirect:'error' before sending. Manual also prevents
+      // following redirects with the GitHub credential; 3xx is a failed dispatch.
+      method: 'POST', redirect: 'manual', signal: AbortSignal.timeout(10000),
       headers: {'Authorization': `Bearer ${env.GITHUB_DISPATCH_TOKEN}`, 'Accept': 'application/vnd.github+json',
         'X-GitHub-Api-Version': '2026-03-10', 'User-Agent': 'LetsDance-Wix-Relay', 'Content-Type': 'application/json'},
       body: JSON.stringify({ref: 'main', inputs: {wix_post_url: body.post_url}}),
