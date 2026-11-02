@@ -3,6 +3,11 @@ on:
   schedule:
     - cron: '17,47 * * * *'
   workflow_dispatch:
+    inputs:
+      wix_post_url:
+        description: 'Published Wix post URL (optional; used by secure relay)'
+        required: false
+        type: string
   push:
     branches: [main]
     paths:
@@ -25,6 +30,11 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Test importer
         run: python3 -m unittest discover -s scripts -p 'test_*.py'
+      - name: Wait for published Wix post to reach RSS
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.wix_post_url != '' }}
+        env:
+          WIX_POST_URL: ${{ inputs.wix_post_url }}
+        run: python3 scripts/wait_for_wix_rss.py
       - name: Import public Wix RSS
         run: python3 scripts/sync_announcements.py
       - name: Prepare durable alert ledger
@@ -60,3 +70,4 @@ jobs:
             git commit -m 'Record studio announcement alert results'
             git push origin HEAD:main
           fi
+
