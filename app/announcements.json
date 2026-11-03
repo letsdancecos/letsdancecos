@@ -1,28 +1,12 @@
 {
   "events": [
     {
-      "id": "1cb9b6ff876035765e17734c802565ddf724089ad5d05e187c213ccd2cd29863",
-      "published_at": "2026-11-03T07:21:25+00:00",
-      "title": "Test 2",
+      "id": "503121ffbcf71f20e52b0f4e1d2293e37035e94498d6689bb7b6352d39a38ce5",
+      "published_at": "2026-11-03T07:57:41+00:00",
+      "title": "note test 3",
       "category": "news",
       "date": "2026-11-03",
-      "details": "test 2"
-    },
-    {
-      "id": "171b8f91a8b3ae4b1a81b435dbc938b46fe587bd545a0dcaa87a431611434f29",
-      "published_at": "2026-11-02T04:34:35+00:00",
-      "title": "Test",
-      "category": "news",
-      "date": "2026-11-02",
-      "details": "notification test"
-    },
-    {
-      "id": "a97e5c425af923bdafe66b0d06f256145df3c2d3dfe551ba43834b20672ee0b1",
-      "published_at": "2026-10-25T03:43:26+00:00",
-      "title": "Test m",
-      "category": "news",
-      "date": "2026-10-25",
-      "details": "Test m"
+      "details": "test 3"
     },
     {
       "id": "89b0658ce98d035a1ac4d3a17d80cf4898ccf9cd19d4d47ca5eea9f1a083c4fc",
