@@ -16,10 +16,11 @@
       "status": "accepted"
     },
     "1cb9b6ff876035765e17734c802565ddf724089ad5d05e187c213ccd2cd29863": {
+      "completed_at": "2026-11-03T07:22:16.294617+00:00",
       "first_seen": "2026-11-03T07:21:41.283301+00:00",
       "key": "a12b9791-d0a6-57b6-ae26-7d93a0271900",
       "reason": "new",
-      "status": "pending"
+      "status": "accepted"
     },
     "286b020a02bc22fcea5767f741d64f4e03a083e8ebff155d2c8fbf4e55535188": {
       "completed_at": "2026-10-24T03:04:14.723212+00:00",
