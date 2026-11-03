@@ -75,6 +75,12 @@
       "key": "120a998a-4878-578e-a066-4ce24eeac68c",
       "reason": "new",
       "status": "accepted"
+    },
+    "c147c4dd68447a6ad081f943f38050671fa5901ed6d8d0b67ffff25ec081bf7c": {
+      "first_seen": "2026-11-03T08:15:07.654771+00:00",
+      "key": "18ab369c-18be-52c2-918a-c6964bae1c68",
+      "reason": "new",
+      "status": "pending"
     }
   },
   "version": 1
