@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
+  <title>Ballet slippers notification badge</title>
+  <defs>
+    <path id="slipper" fill-rule="evenodd" d="M-11 0 C-12-13-11-24-8-30 C-5-37 5-37 8-30 C11-24 12-13 11 0 L9 16 C8 23-8 23-9 16 Z M-5-27 C-7-22-6-13-4-9 C-2-6 2-6 4-9 C6-13 7-22 5-27 C3-31-3-31-5-27 Z"/>
+  </defs>
+  <g fill="white">
+    <g transform="translate(31 64) rotate(18)">
+      <path d="M-6-32 L-9-49 L-3-50 L0-33 Z M3-33 L8-50 L14-48 L9-31 Z"/>
+      <use href="#slipper"/>
+    </g>
+    <g transform="translate(65 64) rotate(-18)">
+      <path d="M-6-32 L-14-48 L-8-50 L-3-33 Z M0-33 L3-50 L9-49 L6-32 Z"/>
+      <use href="#slipper"/>
+    </g>
+  </g>
+</svg>

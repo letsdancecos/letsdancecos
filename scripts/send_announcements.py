@@ -76,6 +76,7 @@ def payload(event, record):
         'idempotency_key': record['key'],
         'ttl': 86400,
         'priority': 10,
+        'chrome_web_badge': APP_URL + 'notification-ballet-shoes-v1.png',
     }
 
 

@@ -107,6 +107,9 @@ class PushTests(unittest.TestCase):
             self.assertEqual(req.get_header('Authorization'), 'Key private-test-value')
             self.assertNotIn('private-test-value', req.data.decode())
             self.assertEqual(json.loads(req.data)['idempotency_key'], 'test-key')
+            self.assertEqual(json.loads(req.data)['priority'], 10)
+            self.assertEqual(json.loads(req.data)['chrome_web_badge'],
+                             'https://letsdancecos.github.io/letsdancecos/app/notification-ballet-shoes-v1.png')
 
 
 if __name__ == '__main__':
