@@ -1,6 +1,14 @@
 {
   "events": [
     {
+      "id": "80101be1d96b08ab1892c1722e157b49eae3b3bc97b61fb9c810a6c70eb3363b",
+      "published_at": "2026-11-06T21:25:18+00:00",
+      "title": "STUDIO CLOSURE NOTICE",
+      "category": "closure",
+      "date": "2026-11-06",
+      "details": "Let’s Dance Studios will be CLOSED Friday, November 13th."
+    },
+    {
       "id": "c147c4dd68447a6ad081f943f38050671fa5901ed6d8d0b67ffff25ec081bf7c",
       "published_at": "2026-11-03T08:13:52+00:00",
       "title": "The Let’s Dance Studios App Is Here!",
