@@ -1,6 +1,6 @@
 const ENDPOINT = 'https://api.github.com/repos/letsdancecos/letsdancecos/actions/workflows/announcements.yml/dispatches';
 const MAX_BODY = 4096;
-const reply = (status, error) => Response.json(error ? {error} : {accepted: true}, {
+const reply = (status, error, details = {}) => Response.json(error ? {error, ...details} : {accepted: true}, {
   status, headers: {'Cache-Control': 'no-store', ...(status === 429 ? {'Retry-After': '60'} : {})},
 });
 
@@ -52,18 +52,27 @@ export async function handle(request, env, dispatch = fetch) {
   if (!body || typeof body !== 'object' || Array.isArray(body) || !await equalSecret(body.secret, env.WIX_WEBHOOK_SECRET))
     return reply(401, 'Unauthorized');
   if (!validPostUrl(body.post_url)) return reply(400, 'Invalid post URL');
+  // Only fixed labels and HTTP status numbers leave this relay on failure.
+  // Never return exception messages, upstream response bodies, headers or keys.
   try {
-    // One shared key: post IDs and caller-supplied IPs cannot bypass this limit.
     if (!(await env.DISPATCH_LIMITER.limit({key: 'studio-announcements'})).success) return reply(429, 'Try later');
+  } catch { return reply(502, 'Dispatch failed', {stage: 'rate_limiter'}); }
+  try {
     const response = await dispatch(ENDPOINT, {
-      method: 'POST', redirect: 'error', signal: AbortSignal.timeout(10000),
+      // Workers rejects redirect:'error' before sending. Manual also prevents
+      // following redirects with the GitHub credential; 3xx is a failed dispatch.
+      method: 'POST', redirect: 'manual', signal: AbortSignal.timeout(10000),
       headers: {'Authorization': `Bearer ${env.GITHUB_DISPATCH_TOKEN}`, 'Accept': 'application/vnd.github+json',
         'X-GitHub-Api-Version': '2026-03-10', 'User-Agent': 'LetsDance-Wix-Relay', 'Content-Type': 'application/json'},
       body: JSON.stringify({ref: 'main', inputs: {wix_post_url: body.post_url}}),
     });
     // Never return upstream bodies, credentials or the incoming payload.
-    return response.status === 204 || response.status === 200 ? reply(202) : reply(502, 'Dispatch failed');
-  } catch { return reply(502, 'Dispatch failed'); }
+    if (response.status === 204 || response.status === 200) return reply(202);
+    const reasons = {400: 'request_rejected', 401: 'credential_rejected', 403: 'permission_or_rate_limit',
+      404: 'repository_or_workflow_not_accessible', 422: 'workflow_ref_or_inputs_rejected', 429: 'github_rate_limit'};
+    return reply(502, 'Dispatch failed', {stage: 'github', upstream_status: response.status,
+      reason: reasons[response.status] || 'unexpected_github_status'});
+  } catch { return reply(502, 'Dispatch failed', {stage: 'github_network_or_request'}); }
 }
 
 export default {fetch(request, env) { return handle(request, env); }};
