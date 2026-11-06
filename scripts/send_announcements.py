@@ -71,7 +71,7 @@ def payload(event, record):
         'isAnyWeb': True,
         'headings': {'en': "Let's Dance Studios"},
         'contents': {'en': event['title']},
-        'url': APP_URL,
+        'url': APP_URL + '?tab=events',
         'name': 'Studio announcement ' + event['id'][:16],
         'idempotency_key': record['key'],
         'ttl': 86400,
