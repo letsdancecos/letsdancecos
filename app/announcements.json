@@ -1,6 +1,14 @@
 {
   "events": [
     {
+      "id": "cf37c108d8df1ac3dfe27e4205c525aa8254da7302950737eebcd23d13faef75",
+      "published_at": "2026-11-25T04:28:23+00:00",
+      "title": "Thanksgiving Studio Closure",
+      "category": "closure",
+      "date": "2026-11-25",
+      "details": "Thanksgiving Studio Closure Let's Dance Studios will be closed Wednesday, November 25, and Thursday, November 26, for the Thanksgiving holiday. We wish all our dance families a wonderful Thanksgiving filled with love, laughter, and gratitude!"
+    },
+    {
       "id": "80101be1d96b08ab1892c1722e157b49eae3b3bc97b61fb9c810a6c70eb3363b",
       "published_at": "2026-11-06T21:25:18+00:00",
       "title": "STUDIO CLOSURE NOTICE",
